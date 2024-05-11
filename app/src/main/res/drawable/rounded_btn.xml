@@ -1,0 +1,23 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Состояние кнопки, когда она отключена -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <!-- Цвет фона неактивной кнопки -->
+            <solid android:color="@color/unact" />
+            <!-- Скругления углов -->
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+    <!-- Состояние кнопки по умолчанию -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Цвет фона кнопки по умолчанию -->
+            <solid android:color="@color/black" />
+            <!-- Скругления углов -->
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+</selector>

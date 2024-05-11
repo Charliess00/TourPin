@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="act">#741ADE</color>
+    <color name="unact">#C6C5CA</color>
+    <color name="back">#F3F3F3</color>
+    <color name="black">#0F0C39</color>
+    <color name="white">#FFFFFFFF</color>
+
+</resources>
