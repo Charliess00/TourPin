@@ -1,6 +1,7 @@
 package com.example.tourpin2
 
 import CountrySearchDialog
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,24 +14,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.example.tourpin2.dialog.CitySearchDialog
+import com.example.tourpin2.dialog.PersonCountDialog
 import com.example.tourpin2.model.CityItem
 import com.example.tourpin2.model.CountryItem
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-interface OnCountrySelectedListener {
+interface Listiner {
     fun onCountrySelected(country: CountryItem)
-}
-
-interface OnCitySelectedListener {
     fun onCitySelected(city: CityItem)
+    fun onPersonSelected(personCount: Int)
 }
 
 
-class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
+class Search : Fragment(), Listiner {
     private var param1: String? = null
     private var param2: String? = null
+    private var person: Int = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +48,13 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
             val dialog = CitySearchDialog()
             dialog.setListener(this) // Установка слушателя
             dialog.show(parentFragmentManager, "CitySearchDialog")
+        }
+
+        val btnAddPerson = view.findViewById<LinearLayout>(R.id.btn_add_person)
+        btnAddPerson.setOnClickListener {
+            val dialog = PersonCountDialog(person)
+            dialog.setListener(this) // Установка слушателя
+            dialog.show(parentFragmentManager, "CountrySearchDialog")
         }
     }
 
@@ -85,6 +93,21 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
 
         deleteImageView?.setOnClickListener {
             resetCity()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onPersonSelected(personCount: Int) {
+        val personText = view?.findViewById<TextView>(R.id.person)
+        val desc = view?.findViewById<TextView>(R.id.desPerson)
+        person = personCount
+        personText?.text = when (personCount) {
+            1, 5, 6 -> "$person человек"
+            else -> "$person человека"
+        }
+        desc?.text = when (personCount) {
+            1 -> "$person взрослый"
+            else -> "$person взрослых"
         }
     }
 

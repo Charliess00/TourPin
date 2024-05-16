@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.example.tourpin2.OnCountrySelectedListener
+import com.example.tourpin2.Listiner
 import com.example.tourpin2.R
+import com.example.tourpin2.Search
 import com.example.tourpin2.model.CountryItem
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CountrySearchDialog : BottomSheetDialogFragment() {
 
-    private var listener: OnCountrySelectedListener? = null
+    private var listener: Listiner? = null
 
-    fun setListener(listener: OnCountrySelectedListener) {
+    fun setListener(listener: Listiner) {
         this.listener = listener
     }
 
@@ -90,6 +91,6 @@ class CountrySearchDialog : BottomSheetDialogFragment() {
             listener?.onCountrySelected(selectedCountry)
             dismiss()
         }
-
     }
+
 }

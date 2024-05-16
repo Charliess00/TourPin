@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.example.tourpin2.OnCitySelectedListener
+import com.example.tourpin2.Listiner
 import com.example.tourpin2.R
 import com.example.tourpin2.model.CityItem
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -17,9 +17,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CitySearchDialog : BottomSheetDialogFragment() {
 
-    private var listener: OnCitySelectedListener? = null
+    private var listener: Listiner? = null
 
-    fun setListener(listener: OnCitySelectedListener) {
+    fun setListener(listener: Listiner) {
         this.listener = listener
     }
 

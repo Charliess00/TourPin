@@ -194,18 +194,9 @@
 
                     <Button
                         android:id="@+id/button"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/rounded_btn"
-                        android:backgroundTint="@color/black"
-                        android:enabled="true"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:letterSpacing="0"
                         android:text="Отправить заявку"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:layout_marginTop="10dp"
+                        style="@style/btn" />
 
                 </LinearLayout>
             </ScrollView>
