@@ -59,8 +59,7 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
@@ -74,23 +73,19 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
         deleteImageView?.visibility = View.VISIBLE
         cityTextView?.setTextColor(
             ContextCompat.getColor(
-                requireContext(),
-                android.R.color.white
+                requireContext(), android.R.color.white
             )
         )
 
         btnAddCity?.let {
             ViewCompat.setBackgroundTintList(
-                it,
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.act))
+                it, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.act))
             )
         }
 
         deleteImageView?.setOnClickListener {
             resetCity()
         }
-
-
     }
 
     private fun resetCity() {
@@ -101,12 +96,10 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
         cityTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.unact))
         btnAddCity?.let {
             ViewCompat.setBackgroundTintList(
-                it,
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.back))
+                it, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.back))
             )
         }
         deleteImageView?.visibility = View.GONE
-
     }
 
     override fun onCountrySelected(country: CountryItem) {
@@ -118,14 +111,12 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
         deleteImageView?.visibility = View.VISIBLE
         countryTextView?.setTextColor(
             ContextCompat.getColor(
-                requireContext(),
-                android.R.color.white
+                requireContext(), android.R.color.white
             )
         )
         btnAddCont?.let {
             ViewCompat.setBackgroundTintList(
-                it,
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.act))
+                it, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.act))
             )
         }
 
@@ -142,8 +133,7 @@ class Search : Fragment(), OnCountrySelectedListener, OnCitySelectedListener {
         countryTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.unact))
         btnAddCont?.let {
             ViewCompat.setBackgroundTintList(
-                it,
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.back))
+                it, ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.back))
             )
         }
         deleteImageView?.visibility = View.GONE

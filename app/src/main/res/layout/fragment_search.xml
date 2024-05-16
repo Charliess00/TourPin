@@ -126,6 +126,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
+                        <!--Карточка даты-->
                         <LinearLayout
                             android:id="@+id/btn_add_data"
                             style="@style/card"
@@ -146,9 +147,11 @@
 
                                 <TextView
                                     style="@style/h3"
+                                    android:id="@+id/data"
                                     android:text="Дата" />
 
                                 <TextView
+                                    android:id="@+id/desData"
                                     style="@style/gray_txt"
                                     android:layout_width="wrap_content"
                                     android:text="Выбрать" />
@@ -174,10 +177,12 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/person"
                                     style="@style/h3"
                                     android:text="Туристы" />
 
                                 <TextView
+                                    android:id="@+id/desPerson"
                                     style="@style/gray_txt"
                                     android:layout_width="wrap_content"
                                     android:text="Выбрать" />
