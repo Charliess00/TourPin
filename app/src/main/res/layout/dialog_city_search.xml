@@ -40,6 +40,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/white"
         android:dividerHeight="5dp"
         android:paddingHorizontal="10dp"
         android:paddingVertical="20dp"

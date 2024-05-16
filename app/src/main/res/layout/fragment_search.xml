@@ -19,12 +19,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- FrameLayout с изображением и текстом -->
+            <!-- Оффер -->
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="413dp">
 
-                <!-- Ваше изображение -->
                 <ImageView
                     android:id="@+id/mainImage"
                     android:layout_width="match_parent"
@@ -32,30 +32,14 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/main" />
 
-                <!-- Ваш текст -->
                 <TextView
                     android:id="@+id/h1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|start"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingBottom="4dp"
-                    android:text="@string/h1_search"
-                    android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    style="@style/h1_txt"
+                    android:text="@string/h1_search" />
 
             </FrameLayout>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingTop="20dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="20dp">
+            <ScrollView style="@style/frame">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,60 +48,40 @@
 
                     <!--Карточка направление-->
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_corners"
-                        android:orientation="vertical"
-                        android:padding="20dp">
+                        style="@style/card"
+                        android:backgroundTint="@color/white">
 
                         <TextView
-                            android:id="@+id/h2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Направление поездки"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                        <!--Страна-->
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/country_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="10dp"
-                            tools:listitem="@layout/country_item"
-                            tools:itemCount="3"
-                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:orientation="horizontal">
-
-                        </androidx.recyclerview.widget.RecyclerView>
+                            style="@style/h2_txt"
+                            android:text="Направление поездки" />
 
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:id="@+id/btn_add_country"
+                            style="@style/round_back"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/back"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
 
-                            <LinearLayout
-                                android:id="@+id/selectedCountryContainer"
+
+                            <TextView
+                                android:id="@+id/country"
+                                style="@style/gray_txt"
+                                android:layout_weight="1"
+                                android:text="Выбрать направление"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:id="@+id/deleteCountry"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="5dp"
-                                android:orientation="horizontal"
+                                android:src="@drawable/ic_delete"
                                 android:visibility="gone" />
-
-                            <ImageButton
-                                android:id="@+id/btn_more_cont"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:src="@drawable/btn_more"
-                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                         </LinearLayout>
 
@@ -127,67 +91,51 @@
                     <!--Карточка Вылет-->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_corners"
-                        android:orientation="vertical"
-                        android:padding="20dp">
+                        style="@style/card"
+                        android:backgroundTint="@color/white">
 
                         <TextView
-                            android:id="@+id/h2_1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Город вылета"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            style="@style/h2_txt"
+                            android:text="Город вылета" />
 
-                        <!--город-->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/city_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="10dp"
-                            tools:listitem="@layout/city_item"
-                            tools:itemCount="3"
-                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/btn_add_city"
+                            style="@style/round_back">
 
-                        </androidx.recyclerview.widget.RecyclerView>
+                            <TextView
+                                android:id="@+id/city"
+                                style="@style/gray_txt"
+                                android:layout_weight="1"
+                                android:text="Выбрать город"
+                                android:textSize="14sp" />
 
-                        <ImageButton
-                            android:id="@+id/btn_more_city"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:src="@drawable/btn_more"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck" />
+                            <ImageView
+                                android:id="@+id/deleteCity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_delete"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:baselineAligned="false"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:id="@+id/btn_add_data"
+                            style="@style/card"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/rounded_corners"
-                            android:orientation="horizontal"
-                            android:padding="20dp">
+                            android:backgroundTint="@color/white">
 
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@drawable/calendar"
                                 app:tint="@color/black" />
 
@@ -197,42 +145,28 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/data_txt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginBottom="4dp"
-                                    android:fontFamily="@font/montserrat_bold"
-                                    android:text="Дата"
-                                    android:textColor="@color/black"
-                                    android:textSize="18sp" />
+                                    style="@style/h3"
+                                    android:text="Дата" />
 
                                 <TextView
-                                    android:id="@+id/night_count"
+                                    style="@style/gray_txt"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/montserrat_semibold"
-                                    android:text="Выбрать"
-                                    android:textColor="@color/unact"
-                                    tools:ignore="TextContrastCheck,TextContrastCheck" />
+                                    android:text="Выбрать" />
                             </LinearLayout>
                         </LinearLayout>
 
+                        <!--Карточка Туристы-->
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:id="@+id/btn_add_person"
+                            style="@style/card"
                             android:layout_weight="1"
-                            android:background="@drawable/rounded_corners"
-                            android:orientation="horizontal"
-                            android:padding="20dp">
+                            android:backgroundTint="@color/white">
 
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@drawable/profile_2user"
-                                app:tint="@color/black"/>
+                                app:tint="@color/black" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -240,22 +174,13 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/count_person"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="4dp"
-                                    android:fontFamily="@font/montserrat_bold"
-                                    android:text="Туристы"
-                                    android:textColor="@color/black"
-                                    android:textSize="18sp" />
+                                    style="@style/h3"
+                                    android:text="Туристы" />
 
                                 <TextView
-                                    android:id="@+id/deteils_person"
+                                    style="@style/gray_txt"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/montserrat_semibold"
-                                    android:text="Выбрать"
-                                    android:textColor="@color/unact" />
+                                    android:text="Выбрать" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -271,15 +196,14 @@
                         android:backgroundTint="@color/black"
                         android:enabled="true"
                         android:fontFamily="@font/montserrat_semibold"
-                        android:textColor="@color/white"
+                        android:letterSpacing="0"
                         android:text="Отправить заявку"
                         android:textAllCaps="false"
-                        android:letterSpacing="0"
-                        android:textSize="16sp"/>
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </ScrollView>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

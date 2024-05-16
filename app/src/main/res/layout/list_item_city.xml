@@ -1,4 +1,4 @@
-<!-- list_item_country.xml -->
+<!-- list_item_city.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,7 +6,7 @@
     android:padding="8dp"
     android:gravity="center_vertical">
 
-    <!-- Иконка флага -->
+    <!-- Иконка -->
     <ImageView
         android:id="@+id/ic"
         android:layout_width="30dp"

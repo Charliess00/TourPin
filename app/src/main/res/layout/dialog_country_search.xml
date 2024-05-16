@@ -42,6 +42,7 @@
             android:paddingVertical="20dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
             android:dividerHeight="5dp"
             tools:listitem="@layout/list_item_country"/>
 </LinearLayout>
