@@ -1,0 +1,12 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Цвет фона кнопки по умолчанию -->
+            <solid android:color="@color/back" />
+            <!-- Скругления углов -->
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+</selector>

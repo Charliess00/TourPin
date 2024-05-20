@@ -7,7 +7,7 @@
     android:layout_gravity="top"
     android:background="@color/back"
     tools:context=".Search"
-    tools:ignore="ContentDescription">
+    tools:ignore="HardcodedText">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -26,11 +26,11 @@
                 android:layout_height="413dp">
 
                 <ImageView
-                    android:id="@+id/mainImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/main" />
+                    android:src="@drawable/main"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/h1"
@@ -65,7 +65,8 @@
                             android:backgroundTint="@color/back"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="8dp">
+                            android:padding="8dp"
+                            tools:ignore="UseCompoundDrawables">
 
 
                             <TextView
@@ -73,7 +74,8 @@
                                 style="@style/gray_txt"
                                 android:layout_weight="1"
                                 android:text="Выбрать направление"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                tools:ignore="InefficientWeight" />
 
                             <ImageView
                                 android:id="@+id/deleteCountry"
@@ -81,7 +83,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="5dp"
                                 android:src="@drawable/ic_delete"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                tools:ignore="ContentDescription" />
 
                         </LinearLayout>
 
@@ -100,22 +103,24 @@
 
                         <LinearLayout
                             android:id="@+id/btn_add_city"
-                            style="@style/round_back">
+                            style="@style/round_back"
+                            tools:ignore="UseCompoundDrawables">
 
                             <TextView
                                 android:id="@+id/city"
                                 style="@style/gray_txt"
                                 android:layout_weight="1"
                                 android:text="Выбрать город"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                tools:ignore="InefficientWeight" />
 
                             <ImageView
                                 android:id="@+id/deleteCity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_delete"
-                                android:visibility="gone" />
-
+                                android:visibility="gone"
+                                tools:ignore="ContentDescription" />
                         </LinearLayout>
 
 
@@ -124,6 +129,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:baselineAligned="false"
                         android:orientation="horizontal">
 
                         <!--Карточка даты-->
@@ -138,7 +144,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/calendar"
-                                app:tint="@color/black" />
+                                app:tint="@color/black"
+                                tools:ignore="ContentDescription" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -146,8 +153,8 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    style="@style/h3"
                                     android:id="@+id/data"
+                                    style="@style/h3"
                                     android:text="Дата" />
 
                                 <TextView
@@ -169,7 +176,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/profile_2user"
-                                app:tint="@color/black" />
+                                app:tint="@color/black"
+                                tools:ignore="ContentDescription" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -194,9 +202,9 @@
 
                     <Button
                         android:id="@+id/button"
-                        android:text="Отправить заявку"
+                        style="@style/btn"
                         android:layout_marginTop="10dp"
-                        style="@style/btn" />
+                        android:text="Отправить заявку" />
 
                 </LinearLayout>
             </ScrollView>

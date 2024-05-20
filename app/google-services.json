@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "889906319746",
+    "firebase_url": "https://tourpin-e4117-default-rtdb.firebaseio.com",
+    "project_id": "tourpin-e4117",
+    "storage_bucket": "tourpin-e4117.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889906319746:android:a6bb409caaa22cf4613f9b",
+        "android_client_info": {
+          "package_name": "com.example.tourpin2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhkqDBWBJWtIiBZD7MuMsOYqmN5P8bpDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

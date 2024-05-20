@@ -4,7 +4,7 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <!-- Цвет фона неактивной кнопки -->
-            <solid android:color="@color/unact" />
+            <solid android:color="@color/black" />
             <!-- Скругления углов -->
             <corners android:radius="10dp" />
         </shape>

@@ -14,9 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.example.tourpin2.dialog.CitySearchDialog
+import com.example.tourpin2.dialog.DataCountDialog
 import com.example.tourpin2.dialog.PersonCountDialog
 import com.example.tourpin2.model.CityItem
 import com.example.tourpin2.model.CountryItem
+import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -25,6 +27,7 @@ interface Listiner {
     fun onCountrySelected(country: CountryItem)
     fun onCitySelected(city: CityItem)
     fun onPersonSelected(personCount: Int)
+    fun onDataSelected(date: String, startData: Int, endDate: Int)
 }
 
 
@@ -35,6 +38,7 @@ class Search : Fragment(), Listiner {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val btnAddCont = view.findViewById<LinearLayout>(R.id.btn_add_country)
         btnAddCont.setOnClickListener {
@@ -54,7 +58,14 @@ class Search : Fragment(), Listiner {
         btnAddPerson.setOnClickListener {
             val dialog = PersonCountDialog(person)
             dialog.setListener(this) // Установка слушателя
-            dialog.show(parentFragmentManager, "CountrySearchDialog")
+            dialog.show(parentFragmentManager, "PersonCountDialog")
+        }
+
+        val btnAddData = view.findViewById<LinearLayout>(R.id.btn_add_data)
+        btnAddData.setOnClickListener {
+            val dialog = DataCountDialog()
+            dialog.setListener(this) // Установка слушателя
+            dialog.show(parentFragmentManager, "DataCountDialog")
         }
     }
 
@@ -97,15 +108,31 @@ class Search : Fragment(), Listiner {
     }
 
     @SuppressLint("SetTextI18n")
+    override fun onDataSelected(date: String, startData: Int, endDate: Int) {
+        val dataText = view?.findViewById<TextView>(R.id.data)
+        val desc = view?.findViewById<TextView>(R.id.desData)
+
+        dataText?.text = date
+        if (startData!= endDate) {
+            desc?.text = "от $startData до $endDate ноч."
+        } else {
+            desc?.text = when (endDate) {
+                2, 3, 4 -> "$endDate ночи"
+                else -> "$endDate ночей"
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onPersonSelected(personCount: Int) {
         val personText = view?.findViewById<TextView>(R.id.person)
         val desc = view?.findViewById<TextView>(R.id.desPerson)
         person = personCount
-        personText?.text = when (personCount) {
+        personText?.text = when (person) {
             1, 5, 6 -> "$person человек"
             else -> "$person человека"
         }
-        desc?.text = when (personCount) {
+        desc?.text = when (person) {
             1 -> "$person взрослый"
             else -> "$person взрослых"
         }

@@ -7,9 +7,10 @@
         <item name="colorAccent">@color/act</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:textColor">@color/black</item>
-
         <item name="android:colorButtonNormal">@color/black</item>
         <item name="android:colorControlHighlight">@color/unact</item>
 
     </style>
+
+
 </resources>
