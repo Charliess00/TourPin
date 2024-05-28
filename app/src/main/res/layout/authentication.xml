@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Войти по email"
+                android:layout_marginBottom="5dp"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
@@ -64,7 +65,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="@string/loginDesc"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/filledTextEmail"
@@ -96,7 +97,7 @@
                     android:background="@drawable/rounded_btn"
                     android:backgroundTint="@color/back"
                     android:hint="Пароль"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textColorHint="@color/unact" />
 
             </com.google.android.material.textfield.TextInputLayout>

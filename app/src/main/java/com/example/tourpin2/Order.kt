@@ -1,25 +1,79 @@
 package com.example.tourpin2
 
+import Orders
+import com.example.tourpin2.adapters.OrdersAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tourpin2.dialog.LoadingDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Order.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Order : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var ordersList: MutableList<Orders>
+    private lateinit var orderKeys: MutableList<String> // Список для хранения ключей записей
+    private lateinit var adapter: OrdersAdapter
+    private lateinit var loading: LoadingDialog
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_order, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loading = LoadingDialog(requireActivity())
+        loading.start()
+
+        // Инициализация списка и адаптера
+        ordersList = mutableListOf()
+        orderKeys = mutableListOf() // Инициализация списка ключей
+        adapter = OrdersAdapter(ordersList, orderKeys, parentFragmentManager)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+
+        // Получение данных из Firebase
+        fetchOrders()
+    }
+
+    private fun fetchOrders() {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Order")
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                ordersList.clear() // Очистка списка перед обновлением
+                orderKeys.clear() // Очистка списка ключей перед обновлением
+                snapshot.children.forEach { dataSnapshot ->
+                    val order = dataSnapshot.getValue(Orders::class.java)
+                    if (order != null && order.uid == currentUserUid) {
+                        ordersList.add(order)
+                        orderKeys.add(dataSnapshot.key.toString()) // Сохранение ключа записи
+                    }
+                }
+                adapter.notifyDataSetChanged()
+                loading.dismiss()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Обработка ошибок чтения данных
+                loading.error()
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +83,10 @@ class Order : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Order.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Order().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun removeOrderFromAdapter(position: Int) {
+        ordersList.removeAt(position)
+        orderKeys.removeAt(position)
+        adapter.notifyItemRemoved(position)
+        adapter.notifyItemRangeChanged(position, ordersList.size)
     }
 }

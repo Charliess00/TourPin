@@ -1,102 +1,162 @@
-package com.example.tourpin2;
+package com.example.tourpin2
 
+import User
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.util.Patterns
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tourpin2.databinding.ActivityRegistrationBinding
-import android.util.Patterns
-import androidx.core.content.ContextCompat
+import com.example.tourpin2.dialog.LoadingDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class Registration : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var name: EditText
+    private lateinit var surname: EditText
+    private lateinit var phone: EditText
+    private lateinit var email: EditText
+    private lateinit var password: EditText
+    private lateinit var confirmPassword: EditText
+    private lateinit var loading: LoadingDialog
+    private lateinit var userId: String
 
-    fun isEmailValid(email: String): Boolean {
+
+    private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initual()
+
         binding.btnBack.setOnClickListener {
-            goToLogin()
+            val intent = Intent(this, Authentication::class.java)
+            startActivity(intent)
+            finish()
         }
 
         // Добавляем слушатель для кнопки отправки формы
         binding.button.setOnClickListener {
-            if (validateFields()) {
-                goToLogin()
+            if (validateFields(surname, name, phone, email, password, confirmPassword)) {
+                Log.d("BTN", "btn clicked")
+                sendDataToFirebase()
             }
         }
     }
 
-    private fun validateFields(): Boolean {
-        // Предполагаем, что у вас есть переменная для хранения состояния валидации
+
+    private fun validateFields(vararg fields: EditText): Boolean {
         var isValid = true
 
-        val pass = binding.editTextPass.text
-        val passSec = binding.editTextPassSec.text
+        for (field in fields) {
+            if (field.text!!.isEmpty()) {
+                field.error = "Поле не должно быть пустым"
+                isValid = false
+            }
+        }
 
-        // Проверяем каждое поле
-        if (binding.editTextSurname.text!!.isEmpty()) {
-            binding.editTextSurname.error = "Введите фамилию"
+        // Дополнительные проверки для специфических полей
+        // Например, проверка длины номера телефона
+        if (phone.text!!.length != 10) {
+            phone.error = "Введите корректный номер телефона"
             isValid = false
         }
-        if (binding.editTextName.text!!.isEmpty()) {
-            binding.editTextName.error = "Введите имя"
+
+        // Проверка email
+        if (!isEmailValid(email.text.toString())) {
+            email.error = "Введите корректный email"
             isValid = false
         }
-        if (binding.editTextPhone.text!!.isEmpty()) {
-            binding.editTextPhone.error = "Введите номер телефона"
+
+        if (password.text!!.length < 6) {
+            password.error = "Пароль должен содержать минимум 6 символов"
             isValid = false
         }
-        if (binding.editTextPhone.text!!.length!= 10) {
-            binding.editTextPhone.error = "Введите корректный номер телефона"
+
+        if (password.text.toString().trim() != confirmPassword.text.toString()
+                .trim() && confirmPassword.text.toString().isNotEmpty() && password.text.toString()
+                .isNotEmpty()
+        ) {
+            password.error = "Поля паролей не совпадают"
             isValid = false
         }
-        if (binding.editTextEmail.text!!.isEmpty()) {
-            binding.editTextEmail.error = "Введите email"
-            isValid = false
-        }
-        if (!isEmailValid(binding.editTextEmail.text.toString())) {
-            binding.editTextEmail.error = "Введите корректный email"
-            isValid = false
-        }
-        if (passSec!!.isEmpty()) {
-            binding.editTextPassSec.error = "Повторите пароль"
-            isValid = false
-        }
-        if (pass!!.isEmpty()) {
-            binding.editTextPass.error = "Введите пароль"
-            isValid = false
-        }
-        if (pass.length < 6) { // Проверка на минимальную длину пароля
-            binding.editTextPass.error = "Пароль должен содержать минимум 6 символов"
-            isValid = false
-        }
-        if (pass.trim() != passSec.trim() && passSec.isNotEmpty() && pass.isNotEmpty()) {
-            Log.d("pass", "Value of pass: $pass")
-            Log.d("pass", "Value of passSec: $passSec")
-            binding.editTextPass.error = "Поля паролей не совпадают"
-            isValid = false
-        }
-        // Изменяем фон для полей, которые не прошли валидацию
 
         return isValid
     }
 
+    private fun sendDataToFirebase() {
 
+        loading.start()
+
+        auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Пользователь успешно зарегистрирован
+                    val userAuth = auth.currentUser
+                    userId = userAuth?.uid.toString()
+
+                    val databaseReference = FirebaseDatabase.getInstance().getReference("User")
+                        .child(userAuth?.uid.toString())
+
+                    val user = User(
+                        name = name.text.toString(),
+                        surname = surname.text.toString(),
+                        phone = "+7${phone.text}",
+                        email = email.text.toString(),
+                    )
+
+                    databaseReference.setValue(user).addOnSuccessListener {
+                            Toast.makeText(this, "Данные успешно отправлены!", Toast.LENGTH_SHORT)
+                                .show()
+                            goToLogin()
+                        }.addOnFailureListener { exception ->
+                            Toast.makeText(
+                                this,
+                                "Ошибка при отправке данных: ${exception.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            loading.end()
+                        }
+                } else {
+                    Toast.makeText(
+                        this, "Такой пользователь уже зарегистрирован", Toast.LENGTH_SHORT
+                    ).show()
+                    loading.end()
+                }
+            }
+    }
+
+    private fun initual() {
+        auth = FirebaseAuth.getInstance()
+        surname = binding.editTextSurname
+        name = binding.editTextName
+        phone = binding.editTextPhone
+        email = binding.editTextEmail
+        password = binding.editTextPass
+        confirmPassword = binding.editTextPassSec
+        loading = LoadingDialog(this)
+    }
 
     private fun goToLogin() {
         val intent = Intent(this, Authentication::class.java)
-        startActivity(intent)
-        finish()
-        finish()
+        val handler = Handler(Looper.getMainLooper())
+
+        loading.end()
+        handler.postDelayed({
+            startActivity(intent)
+            finish()
+        }, 3000)
     }
 }

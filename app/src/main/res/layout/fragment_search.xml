@@ -52,6 +52,7 @@
                         android:backgroundTint="@color/white">
 
                         <TextView
+                            android:id="@+id/h2Country"
                             style="@style/h2_txt"
                             android:text="Направление поездки" />
 
@@ -98,6 +99,7 @@
                         android:backgroundTint="@color/white">
 
                         <TextView
+                            android:id="@+id/h2City"
                             style="@style/h2_txt"
                             android:text="Город вылета" />
 
@@ -141,6 +143,7 @@
                             android:backgroundTint="@color/white">
 
                             <ImageView
+                                android:id="@+id/ic_data"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/calendar"
@@ -173,6 +176,7 @@
                             android:backgroundTint="@color/white">
 
                             <ImageView
+                                android:id="@+id/ic_person"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/profile_2user"

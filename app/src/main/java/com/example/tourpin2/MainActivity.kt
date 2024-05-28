@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.search -> replaceFragment(Search())
                 R.id.order -> replaceFragment(Order())
-                R.id.chat -> replaceFragment(Chat())
                 R.id.profile -> replaceFragment(Profile())
 
                 else -> {

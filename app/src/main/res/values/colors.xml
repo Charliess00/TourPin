@@ -6,5 +6,9 @@
     <color name="black">#0F0C39</color>
     <color name="white">#FFFFFFFF</color>
     <color name="error">#FF0030</color>
+    <color name="suc">#4BAF4F</color>
+    <color name="color_primary">@color/act</color>
+    <color name="color_on_primary">@color/white</color>
+
 
 </resources>

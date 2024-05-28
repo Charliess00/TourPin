@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corners"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_remove" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/city"
+            style="@style/h2_txt"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="0dp"
+            android:text="City" />
+
+        <ImageView
+            android:id="@+id/ic_airplane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_airplane" />
+
+        <TextView
+            android:id="@+id/country"
+            style="@style/h2_txt"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="0dp"
+            android:text="Country" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!--Карточка даты-->
+        <LinearLayout
+            android:id="@+id/btn_add_data"
+            style="@style/card"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ic_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/calendar"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/data"
+                        style="@style/h3"
+                        android:layout_width="match_parent"
+                        android:text="Дата"
+                        android:textAlignment="textStart" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/desData"
+                    style="@style/gray_txt"
+                    android:layout_marginBottom="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="34dp"
+                    android:text="Выбрать"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--Карточка Туристы-->
+        <LinearLayout
+            android:id="@+id/btn_add_person"
+            style="@style/card"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ic_person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/profile_2user"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/person"
+                        style="@style/h3"
+                        android:layout_width="match_parent"
+                        android:text="Туристы"
+                        android:textAlignment="textStart" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/desPerson"
+                    style="@style/gray_txt"
+                    android:layout_marginBottom="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="34dp"
+                    android:text="Выбрать"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_btn"
+        android:backgroundTint="@color/back">
+
+        <Button
+            android:id="@+id/buttonReg"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingHorizontal="40dp"
+            android:paddingVertical="10dp"
+            android:text="Предложений пока нет"
+            android:textAllCaps="false"
+            android:textColor="@color/unact"
+            android:textSize="12sp" />
+    </FrameLayout>
+
+
+</LinearLayout>
