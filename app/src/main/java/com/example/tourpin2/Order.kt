@@ -1,6 +1,6 @@
 package com.example.tourpin2
 
-import Orders
+import com.example.tourpin2.`class`.Orders
 import com.example.tourpin2.adapters.OrdersAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -38,7 +38,7 @@ class Order : Fragment() {
         // Инициализация списка и адаптера
         ordersList = mutableListOf()
         orderKeys = mutableListOf() // Инициализация списка ключей
-        adapter = OrdersAdapter(ordersList, orderKeys, parentFragmentManager)
+        adapter = OrdersAdapter(ordersList, orderKeys, parentFragmentManager, requireContext())
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)

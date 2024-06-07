@@ -6,6 +6,7 @@
     android:background="@color/back"
     android:orientation="vertical"
     style="@style/frame"
+    android:paddingBottom="0dp"
     tools:context=".Order"
     tools:ignore="HardcodedText">
 

@@ -1,3 +1,5 @@
+package com.example.tourpin2.`class`
+
 data class Orders(
     val country: String,
     val city: String,

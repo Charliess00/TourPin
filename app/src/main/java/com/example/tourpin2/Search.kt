@@ -1,7 +1,7 @@
 package com.example.tourpin2
 
 import CountrySearchDialog
-import Orders
+import com.example.tourpin2.`class`.Orders
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle

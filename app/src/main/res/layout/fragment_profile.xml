@@ -6,7 +6,8 @@
     android:background="@color/back"
     android:orientation="vertical"
     style="@style/frame"
-    tools:context=".Profile">
+    tools:context=".Profile"
+    tools:ignore="HardcodedText, ContentDescription, InefficientWeight">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,15 +30,15 @@
             <TextView
                 android:id="@+id/profileText"
                 android:layout_width="70dp"
-                android:textAllCaps="true"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center"
-                android:text="ти"
+                android:text="ФИ"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="26dp" /> <!-- Установите цвет текста по вашему выбору -->
+                android:textSize="26sp" /> <!-- Установите цвет текста по вашему выбору -->
 
         </FrameLayout>
 
@@ -88,7 +89,6 @@
             style="@style/h3"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat_semibold"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:text="Личные данные" />
