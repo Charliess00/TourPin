@@ -95,10 +95,12 @@ class OrdersAdapter(
         }
 
         holder.button.setOnClickListener {
-            getProposalKeysForOrder(orderKeys[position]) { keys ->
-                val intent = Intent(context, Proposal::class.java)
-                intent.putStringArrayListExtra("proposalKeys", ArrayList(keys))
-                context.startActivity(intent)
+            if (holder.buttonTxt.text.toString()!= "Предложений пока нет") {
+                getProposalKeysForOrder(orderKeys[position]) { keys ->
+                    val intent = Intent(context, Proposal::class.java)
+                    intent.putStringArrayListExtra("proposalKeys", ArrayList(keys))
+                    context.startActivity(intent)
+                }
             }
         }
     }

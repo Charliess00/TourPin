@@ -23,7 +23,7 @@ class LoadingDialog(val mActivity: Activity) {
             if (isdialog.isShowing) {
                 error()
             }
-        }, 15000)
+        }, 20000)
     }
 
     fun dismiss(){

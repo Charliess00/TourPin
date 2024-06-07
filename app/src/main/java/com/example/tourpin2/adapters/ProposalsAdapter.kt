@@ -7,9 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tourpin2.R
 import com.example.tourpin2.`class`.Proposals
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 class ProposalsAdapter(private val proposalsList: MutableList<Proposals>) :
     RecyclerView.Adapter<ProposalsAdapter.ProposalViewHolder>() {
+
+
 
     inner class ProposalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val hotelName: TextView = itemView.findViewById(R.id.hotel_name)
@@ -28,13 +32,15 @@ class ProposalsAdapter(private val proposalsList: MutableList<Proposals>) :
     }
 
     override fun onBindViewHolder(holder: ProposalViewHolder, position: Int) {
-        Log.d("ProposalsAdapter", "$proposalsList")
         val proposal = proposalsList[position]
         holder.hotelName.text = proposal.hotel_name
         holder.country.text = proposal.country
         holder.tourCity.text = proposal.city_tour
         holder.startDate.text = proposal.data_start
         holder.endDate.text = proposal.data_end
+
+        Picasso.get().load(proposal.hotel_img).into(holder.img)
+
 
         val night = proposal.night.toString()
         holder.night.text = "$night ноч."

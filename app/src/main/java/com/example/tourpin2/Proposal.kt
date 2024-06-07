@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tourpin2.`class`.Proposals
 import com.example.tourpin2.databinding.FragmentProposalBinding
+import com.example.tourpin2.dialog.LoadingDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,6 +20,7 @@ class Proposal : AppCompatActivity() {
     private lateinit var binding: FragmentProposalBinding
     private lateinit var adapter: ProposalsAdapter
     private lateinit var proposalsList: MutableList<Proposals>
+    private lateinit var loadingDialog: LoadingDialog
     var databaseRef = FirebaseDatabase.getInstance().getReference("Proposal")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +42,13 @@ class Proposal : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
+        loadingDialog = LoadingDialog(this)
+
         if (proposalKeys!= null) {
+            loadingDialog.start()
             fetchProposal(proposalKeys)
+        } else{
+            loadingDialog.dismiss()
         }
     }
 
@@ -54,14 +61,15 @@ class Proposal : AppCompatActivity() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val proposal = dataSnapshot.getValue(Proposals::class.java)
                         if (proposal!= null) {
-                            Log.d("ProposalActivity", "Добавляем в адаптер: ${proposal.hotel_name}, ${proposal.hotel_img}")
                             proposalsList.add(proposal)
                             adapter.notifyItemInserted(proposalsList.size - 1) // Уведомляем адаптер о добавлении нового элемента
                         }
+                        loadingDialog.dismiss()
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
                         Log.d("ProposalActivity", "Ошибка при получении данных: ${databaseError.message}")
+                        loadingDialog.error()
                     }
                 })
         }
