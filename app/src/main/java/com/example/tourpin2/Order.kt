@@ -22,7 +22,7 @@ class Order : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var ordersList: MutableList<Orders>
-    private lateinit var orderKeys: MutableList<String> // Список для хранения ключей записей
+    private lateinit var orderKeys: MutableList<String>
     private lateinit var adapter: OrdersAdapter
     private lateinit var loading: LoadingDialog
 
@@ -35,16 +35,14 @@ class Order : Fragment() {
         loading = LoadingDialog(requireActivity())
         loading.start()
 
-        // Инициализация списка и адаптера
         ordersList = mutableListOf()
-        orderKeys = mutableListOf() // Инициализация списка ключей
+        orderKeys = mutableListOf()
         adapter = OrdersAdapter(ordersList, orderKeys, parentFragmentManager, requireContext())
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        // Получение данных из Firebase
         fetchOrders()
     }
 
@@ -55,13 +53,13 @@ class Order : Fragment() {
         databaseReference.addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-                ordersList.clear() // Очистка списка перед обновлением
-                orderKeys.clear() // Очистка списка ключей перед обновлением
+                ordersList.clear()
+                orderKeys.clear()
                 snapshot.children.forEach { dataSnapshot ->
                     val order = dataSnapshot.getValue(Orders::class.java)
                     if (order != null && order.uid == currentUserUid) {
                         ordersList.add(order)
-                        orderKeys.add(dataSnapshot.key.toString()) // Сохранение ключа записи
+                        orderKeys.add(dataSnapshot.key.toString())
                     }
                 }
                 adapter.notifyDataSetChanged()
@@ -69,7 +67,6 @@ class Order : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Обработка ошибок чтения данных
                 loading.error()
             }
         })

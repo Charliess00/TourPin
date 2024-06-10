@@ -11,9 +11,10 @@ data class Proposals(
     val night: Int,
     val person: Int,
     val city: String,
-    val price: Long,
+    val price: Int,
     val booking: Boolean,
+    val agent_ID: String,
     val order_ID: String
 ){
-    constructor() : this("","","","","","","",0,0,"",0,false,"")
+    constructor() : this("","","","","","","",0,0,"",0,false,"", "")
 }

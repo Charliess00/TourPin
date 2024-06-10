@@ -38,7 +38,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="26sp" /> <!-- Установите цвет текста по вашему выбору -->
+                android:textSize="26sp" />
 
         </FrameLayout>
 

@@ -1,11 +1,9 @@
 package com.example.tourpin2.adapters
 
-import com.example.tourpin2.`class`.Orders
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tourpin2.Order
 import com.example.tourpin2.Proposal
 import com.example.tourpin2.R
+import com.example.tourpin2.`class`.Orders
 import com.example.tourpin2.dialog.DelOrderDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -57,16 +55,16 @@ class OrdersAdapter(
         holder.cityView.text = currentOrder.city
         holder.countryView.text = currentOrder.country
         holder.dataView.text = currentOrder.data
-        val person: String = currentOrder.tourists_count
+        val person: Int = currentOrder.tourists_count
 
         holder.personView.text = "$person туристов"
         when (person) {
-            "1" -> holder.personView.text = "$person турист"
-            "5", "6" -> holder.personView.text = "$person туристов"
+            1 -> holder.personView.text = "$person турист"
+            5, 6 -> holder.personView.text = "$person туристов"
             else -> holder.personView.text = "$person туриста"
         }
 
-        holder.personDesView.text = if (person == "1") "$person взрослый" else "$person взрослых"
+        holder.personDesView.text = if (person == 1) "$person взрослый" else "$person взрослых"
 
         val first = currentOrder.nightFirst
         val second = currentOrder.nightSecond

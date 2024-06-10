@@ -1,7 +1,6 @@
 package com.example.tourpin2
 
 import CountrySearchDialog
-import com.example.tourpin2.`class`.Orders
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -14,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import com.example.tourpin2.`class`.Orders
 import com.example.tourpin2.dialog.*
 import com.example.tourpin2.model.CityItem
 import com.example.tourpin2.model.CountryItem
@@ -80,7 +80,6 @@ class Search : Fragment(), Listiner {
             loading.start()
             if (validateFields()) {
                 order.uid = cUser?.uid.toString()
-                order.tourists_count = extractNumberFromText(order.tourists_count)
 
                 sendToFirebase(order)
 
@@ -92,18 +91,18 @@ class Search : Fragment(), Listiner {
     }
 
     private fun toOrder(fragment: Fragment) {
-            val fragmentManager = parentFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            loading.end()
-            fragmentTransaction.replace(R.id.frame_layout, fragment)
-            fragmentTransaction.commit()
+        val fragmentManager = parentFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        loading.end()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 
 
-    private fun extractNumberFromText(text: String): String {
+    private fun extractNumberFromText(text: String): Int {
         val numberPattern = """\d""".toRegex()
         val matchResult = numberPattern.find(text)
-        return matchResult?.value.toString()
+        return matchResult?.value?.toInt() ?: return 0
     }
 
     private fun sendToFirebase(order: Orders) {
@@ -125,6 +124,10 @@ class Search : Fragment(), Listiner {
         var isValid = true
         val nightInt =
             extractNumbersFromText(view?.findViewById<TextView>(R.id.desData)?.text.toString())
+
+        val personInt =
+            extractNumberFromText(view?.findViewById<TextView>(R.id.person)?.text.toString())
+
         val colorError = view?.context?.let { ContextCompat.getColor(it, R.color.error) }
         val colorErrorList =
             view?.context?.let { ContextCompat.getColorStateList(it, R.color.error) }
@@ -133,9 +136,9 @@ class Search : Fragment(), Listiner {
             country = view?.findViewById<TextView>(R.id.country)?.text.toString(),
             city = view?.findViewById<TextView>(R.id.city)?.text.toString(),
             data = view?.findViewById<TextView>(R.id.data)?.text.toString(),
-            nightFirst = nightInt.first.toString(),
-            nightSecond = nightInt.second.toString(),
-            tourists_count = view?.findViewById<TextView>(R.id.person)?.text.toString(),
+            nightFirst = nightInt.first,
+            nightSecond = nightInt.second,
+            tourists_count = personInt,
             uid = ""
         )
 
@@ -156,7 +159,7 @@ class Search : Fragment(), Listiner {
         if (nightInt.first == 0 || nightInt.second == 0) {
             isValid = false
         }
-        if (order.tourists_count.first().toString().toIntOrNull() == null) {
+        if (order.tourists_count == 0) {
             view?.findViewById<TextView>(R.id.person)?.setTextColor(colorError!!)
             val drawable = view?.findViewById<ImageView>(R.id.ic_person)?.drawable
             DrawableCompat.setTintList(drawable!!, colorErrorList!!)

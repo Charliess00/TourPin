@@ -10,6 +10,7 @@
     <string name="save">Сохранить</string>
     <string name="loginDesc">Выполните вход или зарегистрируйтесь,\nесли у вас еще нет аккаунта</string>
     <string name="hint_mail">example@gmail.com</string>
+    <string name="testDesc">Здесь не придётся придумывать, куда пойти, — всё интересное уже есть рядом. Курорт «Megasaray Club Belek» находится в Белеке. Этот курорт расположен в 7 км от центра города. Рядом с курортом можно прогуляться. Неподалёку: Тат Гольф, Националь Поле для Гольфа и Анталья Гольф.</string>
 
 
     <string-array name="rangeSlider">

@@ -47,10 +47,9 @@ class Registration : AppCompatActivity() {
             finish()
         }
 
-        // Добавляем слушатель для кнопки отправки формы
+
         binding.button.setOnClickListener {
             if (validateFields(surname, name, phone, email, password, confirmPassword)) {
-                Log.d("BTN", "btn clicked")
                 sendDataToFirebase()
             }
         }
@@ -67,14 +66,13 @@ class Registration : AppCompatActivity() {
             }
         }
 
-        // Дополнительные проверки для специфических полей
-        // Например, проверка длины номера телефона
+
         if (phone.text!!.length != 10) {
             phone.error = "Введите корректный номер телефона"
             isValid = false
         }
 
-        // Проверка email
+
         if (!isEmailValid(email.text.toString())) {
             email.error = "Введите корректный email"
             isValid = false
@@ -103,7 +101,7 @@ class Registration : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Пользователь успешно зарегистрирован
+
                     val userAuth = auth.currentUser
                     userId = userAuth?.uid.toString()
 
@@ -118,22 +116,20 @@ class Registration : AppCompatActivity() {
                     )
 
                     databaseReference.setValue(user).addOnSuccessListener {
-                            Toast.makeText(this, "Данные успешно отправлены!", Toast.LENGTH_SHORT)
-                                .show()
                             goToLogin()
                         }.addOnFailureListener { exception ->
                             Toast.makeText(
                                 this,
-                                "Ошибка при отправке данных: ${exception.message}",
+                                "Ошибка при регистрации: ${exception.message}",
                                 Toast.LENGTH_LONG
                             ).show()
-                            loading.end()
+                            loading.error()
                         }
                 } else {
                     Toast.makeText(
                         this, "Такой пользователь уже зарегистрирован", Toast.LENGTH_SHORT
                     ).show()
-                    loading.end()
+                    loading.error()
                 }
             }
     }

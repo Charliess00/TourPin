@@ -4,10 +4,10 @@ data class Orders(
     val country: String,
     val city: String,
     val data: String,
-    val nightFirst: String, // Заменено на String
-    val nightSecond: String, // Заменено на String
-    var tourists_count: String,
+    val nightFirst: Int,
+    val nightSecond: Int,
+    var tourists_count: Int,
     var uid: String
 ) {
-    constructor() : this("", "", "", "", "", "", "")
+    constructor() : this("", "", "", 0, 0, 0, "")
 }

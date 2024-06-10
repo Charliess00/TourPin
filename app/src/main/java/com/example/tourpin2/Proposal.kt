@@ -1,10 +1,8 @@
 package com.example.tourpin2
 
-import ProposalsAdapter
-import android.annotation.SuppressLint
+import android.content.Intent
+import com.example.tourpin2.adapters.ProposalsAdapter
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tourpin2.`class`.Proposals
@@ -36,7 +34,14 @@ class Proposal : AppCompatActivity() {
         val proposalKeys = intent.getStringArrayListExtra("proposalKeys")
 
         proposalsList = mutableListOf()
-        adapter = ProposalsAdapter(proposalsList)
+        adapter = ProposalsAdapter(proposalsList, object : ProposalsAdapter.OnProposalItemClickListener {
+            override fun onProposalItemClick(position: Int) {
+                val selectedKey = proposalKeys?.get(position)
+                val intent = Intent(this@Proposal, Tour::class.java)
+                intent.putExtra("selectedProposalKey", selectedKey)
+                startActivity(intent)
+            }
+        })
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -44,7 +49,7 @@ class Proposal : AppCompatActivity() {
 
         loadingDialog = LoadingDialog(this)
 
-        if (proposalKeys!= null) {
+        if (proposalKeys!= null && proposalKeys.isNotEmpty()) {
             loadingDialog.start()
             fetchProposal(proposalKeys)
         } else{
@@ -62,13 +67,12 @@ class Proposal : AppCompatActivity() {
                         val proposal = dataSnapshot.getValue(Proposals::class.java)
                         if (proposal!= null) {
                             proposalsList.add(proposal)
-                            adapter.notifyItemInserted(proposalsList.size - 1) // Уведомляем адаптер о добавлении нового элемента
+                            adapter.notifyItemInserted(proposalsList.size - 1)
                         }
                         loadingDialog.dismiss()
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        Log.d("ProposalActivity", "Ошибка при получении данных: ${databaseError.message}")
                         loadingDialog.error()
                     }
                 })
