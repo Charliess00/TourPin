@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class Bookings : Fragment() {
     private lateinit var bookingList: MutableList<BookingTour>
     private lateinit var loading: LoadingDialog
     var databaseRef = FirebaseDatabase.getInstance().getReference("Booking")
+    private lateinit var imageViewNoBookings: ImageView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +45,7 @@ class Bookings : Fragment() {
         val recyclerView =  view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = adapter
+        imageViewNoBookings = view.findViewById(R.id.imageViewNoBookings)
 
         loading = LoadingDialog(requireActivity())
 
@@ -66,6 +69,13 @@ class Bookings : Fragment() {
                     }
                 }
                 adapter.notifyDataSetChanged()
+
+                if (bookingList.isEmpty()) {
+                    imageViewNoBookings.visibility = View.VISIBLE
+                } else {
+                    imageViewNoBookings.visibility = View.GONE
+                }
+
                 loading.dismiss()
             }
 

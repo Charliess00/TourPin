@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ class Order : Fragment() {
     private lateinit var orderKeys: MutableList<String>
     private lateinit var adapter: OrdersAdapter
     private lateinit var loading: LoadingDialog
+    private lateinit var imageViewNoOrders: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_order, container, false)
@@ -42,6 +44,7 @@ class Order : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+        imageViewNoOrders = view.findViewById(R.id.imageViewNoOrders)
 
         fetchOrders()
     }
@@ -63,6 +66,13 @@ class Order : Fragment() {
                     }
                 }
                 adapter.notifyDataSetChanged()
+
+                if (ordersList.isEmpty()) {
+                    imageViewNoOrders.visibility = View.VISIBLE
+                } else {
+                    imageViewNoOrders.visibility = View.GONE
+                }
+
                 loading.dismiss()
             }
 
