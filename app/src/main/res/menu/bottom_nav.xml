@@ -10,6 +10,10 @@
         android:id="@+id/order"
         android:icon="@drawable/orders"/>
 
+    <item android:title="@string/menu_tour"
+        android:id="@+id/tour"
+        android:icon="@drawable/booking"/>
+
     <item android:title="@string/menu_profile"
         android:id="@+id/profile"
         android:icon="@drawable/profile"/>

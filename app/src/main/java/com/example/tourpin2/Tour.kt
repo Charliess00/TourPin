@@ -2,6 +2,7 @@ package com.example.tourpin2
 
 import Agent
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -28,17 +29,24 @@ class Tour : AppCompatActivity() {
         loading = LoadingDialog(this)
         loading.start()
 
-        val selectedProposalKey = intent.getStringExtra("selectedProposalKey")
+        val proposalKey = intent.getStringExtra("proposalKey").toString()
 
         val btnBack = binding.back
         btnBack.setOnClickListener {
             finish()
         }
 
-        loadTourData(selectedProposalKey)
+        binding.btnBooking.setOnClickListener{
+            val intent = Intent(this, Booking::class.java)
+            intent.putExtra("tourKey", proposalKey)
+            startActivity(intent)
+            finish()
+        }
+
+        loadTourData(proposalKey)
     }
 
-    private fun loadTourData(key: String?) {
+    private fun loadTourData(key: String) {
         val databaseRef = FirebaseDatabase.getInstance().getReference("Proposal/$key")
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("SetTextI18n")

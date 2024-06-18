@@ -56,9 +56,21 @@ class DelOrderDialog : BottomSheetDialogFragment() {
         return view
     }
 
-
     private fun deleteOrder(orderKey: String) {
+        // Сначала пытаемся удалить Заказ сразу же
+        drOrder.child(orderKey).removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                position?.let {
+                    (targetFragment as? Order)?.removeOrderFromAdapter(it)
+                    loading.dismiss()
+                    dismiss()
+                }
+            } else {
+                loading.error()
+            }
+        }
 
+        // Затем проверяем наличие связанных Предложений и обрабатываем их отдельно
         drProposal.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach { dataSnapshot ->
@@ -66,20 +78,6 @@ class DelOrderDialog : BottomSheetDialogFragment() {
                     if (proposal!= null && proposal.order_ID == orderKey) {
                         val proposalKey = dataSnapshot.key.toString()
                         removeProposalAndOrder(proposalKey, orderKey)
-                    } else {
-                        drOrder.child(orderKey).removeValue().addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                position?.let {
-                                    (targetFragment as? Order)?.removeOrderFromAdapter(it)
-
-                                    loading.dismiss()
-                                    dismiss()
-
-                                }
-                            } else {
-                                loading.error()
-                            }
-                        }
                     }
                 }
             }
@@ -90,14 +88,13 @@ class DelOrderDialog : BottomSheetDialogFragment() {
             ) {
                 drProposal.child(proposalKey).removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        // После успешного удаления Предложения также пытаемся удалить Заказ снова
                         drOrder.child(orderKey).removeValue().addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 position?.let {
                                     (targetFragment as? Order)?.removeOrderFromAdapter(it)
-
                                     loading.dismiss()
                                     dismiss()
-
                                 }
                             } else {
                                 loading.error()
@@ -114,6 +111,4 @@ class DelOrderDialog : BottomSheetDialogFragment() {
             }
         })
     }
-
-
 }

@@ -38,7 +38,7 @@ class Proposal : AppCompatActivity() {
             override fun onProposalItemClick(position: Int) {
                 val selectedKey = proposalKeys?.get(position)
                 val intent = Intent(this@Proposal, Tour::class.java)
-                intent.putExtra("selectedProposalKey", selectedKey)
+                intent.putExtra("proposalKey", selectedKey)
                 startActivity(intent)
             }
         })

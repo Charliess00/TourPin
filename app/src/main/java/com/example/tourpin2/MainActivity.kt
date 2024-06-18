@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tourpin2.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.search -> replaceFragment(Search())
                 R.id.order -> replaceFragment(Order())
                 R.id.profile -> replaceFragment(Profile())
+                R.id.tour -> replaceFragment(Bookings())
 
                 else -> {
                 }
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
 

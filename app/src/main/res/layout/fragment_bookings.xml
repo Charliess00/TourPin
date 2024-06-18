@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical"
-    style="@style/frame"
     android:paddingBottom="0dp"
+    style="@style/frame"
     tools:context=".Order"
-    tools:ignore="HardcodedText">
+    tools:ignore="contentDescription, HardcodedText">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         android:paddingRight="0dp"
         android:layout_marginBottom="20dp"
         style="@style/h1_txt"
-        android:text="Ваши заявки" />
+        android:text="Мои туры" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -25,6 +25,6 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         tools:itemCount="3"
-        tools:listitem="@layout/card_order"/>
+        tools:listitem="@layout/card_proposal"/>
 
 </LinearLayout>

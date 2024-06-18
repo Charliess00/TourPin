@@ -1,6 +1,6 @@
 package com.example.tourpin2.`class`
 
-data class Proposals(
+data class BookingTour(
     val hotel_name: String,
     val hotel_desc: String,
     val hotel_img: String,
@@ -13,7 +13,7 @@ data class Proposals(
     val city: String,
     val price: Int,
     val uid: String,
-    val order_ID: String
+    val agent_ID: String
 ){
     constructor() : this("","","","","","","",0,0,"",0,"", "")
 }

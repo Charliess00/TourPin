@@ -32,6 +32,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Proposal" />
         <activity android:name=".Tour" />
+        <activity android:name=".Booking" />
 
 
         <meta-data
