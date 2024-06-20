@@ -2,6 +2,6 @@
 <selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <bitmap android:src ="@drawable/splash"
-            android:gravity="center"/>
+            android:gravity="fill"/>
     </item>
 </selector>

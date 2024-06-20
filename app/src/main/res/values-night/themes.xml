@@ -1,16 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TourPin2" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.TourPin" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/act</item> <!--Кнопки-->
-        <item name="colorPrimaryDark">@color/black</item> <!--Система-->
+        <item name="colorPrimaryDark">@color/act</item>
+
+        <item name="colorPrimary">@color/act</item>
         <item name="colorAccent">@color/act</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:textColor">@color/black</item>
-
-        <item name="android:colorButtonNormal">@color/black</item>
-        <item name="android:colorControlHighlight">@color/unact</item>
-
 
     </style>
 </resources>
